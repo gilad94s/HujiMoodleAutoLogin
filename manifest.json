@@ -1,7 +1,7 @@
 {
   "name": "Moodle auto login",
   "version": "1.0",
-  "description": "Periodically log in the your huji moodle account!",
+  "description": "Periodically log in the your huji moodle account! \nWarning: this extension saves your moodle password in plain text, so anyone with access to your computer will be able to know it.",
   "background": {
     "scripts": [
       "background.js"

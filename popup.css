@@ -1,0 +1,61 @@
+body {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 200px;
+    min-width: 160px;
+}
+
+h3 {
+    color: #1790fb;
+    font-size: 18px;
+}
+
+label {
+    color: #0a42a9;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input#username-input, input#password-input {
+    margin-bottom: 10px;
+    width: 100%;
+    min-height: 40px;
+    padding: 5px;
+    font-size: 14px;
+    letter-spacing: 5px;
+    outline: none;
+}
+
+input#save-cred {
+    border-color: #1690fb;
+    color: #1690fb;
+    cursor: pointer;
+    outline: none;
+}
+
+div#saved-banner{
+    color: forestgreen;
+    border-color: forestgreen;
+}
+
+input#save-cred, div#saved-banner{
+    text-align: center;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 16px;
+    border: 1px solid;
+    border-radius: 3px;
+    letter-spacing: 3px;
+    box-sizing: border-box;
+}
+
+input#save-cred[hidden], div#saved-banner[hidden]{
+    display: none;
+}

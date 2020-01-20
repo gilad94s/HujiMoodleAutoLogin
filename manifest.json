@@ -1,0 +1,24 @@
+{
+  "name": "Moodle auto login",
+  "version": "1.0",
+  "description": "Periodically log in the your huji moodle account!",
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "alarms",
+    "storage",
+    "https://moodle2.cs.huji.ac.il/nu19/login/index.php",
+    "https://moodle2.cs.huji.ac.il/nu19/"
+  ],
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "moodle-icon-page_0.png"
+  },
+  "manifest_version": 2
+}

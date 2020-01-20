@@ -11,7 +11,7 @@ If (from some reason) you care about your password, don't install this extension
 
 ## Installation 
 
-- Download the project as a zip file (in the github repo page), then extract the files.
+- Download the project as a zip file (in the github repo page, click on 'Clone or Download' -> 'Download ZIP'), then extract the files.
 
 - Open [chrome://extensions/](chrome://extensions/) and turn on developer mode (probably on the top right)
 

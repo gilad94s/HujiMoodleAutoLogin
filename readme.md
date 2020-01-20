@@ -1,15 +1,15 @@
-#Auto loggin to Huji's moodle
+# Auto loggin to Huji's moodle
 
 An auto login chrome extension to huji's moodle.
 
 Feel free to send pull request if you want to contribute in any way.
 
-##Warning!
+## Warning!
 Before you install the extension take in mind that it will save the moodle password as plain text, meaning anyone with access to your computer will be able the see it.
 
 If (from some reason) you care about your password, don't install this extension.
 
-##Installation 
+## Installation 
 
 - Download the project as a zip file (in the github repo page), then extract the files.
 

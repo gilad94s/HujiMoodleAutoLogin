@@ -13,54 +13,67 @@ try {
 
 
 bro.alarms.create('login', {periodInMinutes: 20});
-bro.alarms.onAlarm.addListener(loginInNeeded);
+bro.alarms.onAlarm.addListener(loginInIfNeeded);
+chrome.runtime.onStartup.addListener(loginInIfNeeded);
 
-async function loginInNeeded() {
+async function loginInIfNeeded() {
     try {
         log('Starting login process');
-        let htmlText;
-        try {
-            let page = await fetch('https://moodle2.cs.huji.ac.il/nu19/');
-            htmlText = await page.text();
+        let {username, password} = await getSavedCred();
+
+        if (!username || !password) {
+            return log('Username or password not initialized yet')
         }
-        catch (e) {
-            err('Failed connecting to moodle.');
-            console.error(e);
-            return;
+
+        let htmlText = await getLoginPageHtml();
+        let loginToken = getLoginToken(htmlText);
+
+        if (!loginToken) {
+            return log('Did not find logintoken, the user is probably connected.');
         }
-        let matches = getLoginToken(htmlText);
 
-        if (matches && matches.length > 1) {
-            let loginToken = matches[1];
-            log(`found logintoken: ${loginToken}`);
-            bro.storage.sync.get(['username', 'password'], async function ({username, password}) {
-                let formData = createLoginFormData(username, password, loginToken);
+        log(`found logintoken: ${loginToken}`);
 
-                log(`logging in for user ${username}`);
 
-                try {
-                    await fetch('https://moodle2.cs.huji.ac.il/nu19/login/index.php', {
-                        method: 'post',
-                        body: formData
-                    });
+        await loginToMoodle(username, password, loginToken);
 
-                    log('Done logging in, this does not mean the login was successful!')
-                } catch (e) {
-                    err('Could not log in! check the username and password and try again.');
-                    console.error(e);
-                }
-
-            });
-        } else {
-            log('Did not find logintoken, the user is probably connected.');
-        }
     } catch (e) {
         console.error(e);
     }
 }
 
+async function getSavedCred() {
+    return new Promise(resolve => {
+        bro.storage.sync.get(['username', 'password'], resolve);
+    })
+}
+
+async function getLoginPageHtml() {
+    let page = await fetch('https://moodle2.cs.huji.ac.il/nu19/');
+    return await page.text();
+}
+
+async function loginToMoodle(username, password, loginToken) {
+    log(`logging in for user ${username}`);
+    try {
+        let formData = createLoginFormData(username, password, loginToken);
+        await fetch('https://moodle2.cs.huji.ac.il/nu19/login/index.php', {
+            method: 'post',
+            body: formData
+        });
+
+        log('Done logging in, this does not mean the login was successful!')
+    } catch (e) {
+        err('Could not log in! check the username and password and try again.');
+        console.error(e);
+    }
+}
+
 function getLoginToken(htmlText) {
-    return htmlText.match(/name="logintoken" value="(.*?)"/);
+    let matches = htmlText.match(/name="logintoken" value="(.*?)"/);
+    if (matches && matches.length > 1) {
+        return matches[1];
+    }
 }
 
 function createLoginFormData(username, password, loginToken) {

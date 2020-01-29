@@ -1,7 +1,7 @@
 {
   "name": "Moodle auto login",
   "version": "1.0",
-  "description": "Periodically log in the your huji moodle account! \nWarning: this extension saves your moodle password in plain text, so anyone with access to your computer will be able to know it.",
+  "description": "Periodically log in the your huji moodle account! \nWarning: this extension saves your moodle password in plain text.",
   "background": {
     "scripts": [
       "background.js"
@@ -18,7 +18,7 @@
     "default_popup": "popup.html"
   },
   "icons": {
-    "128": "moodle-icon-page_0.png"
+    "128": "Webp.net-resizeimage.png"
   },
   "manifest_version": 2
 }
